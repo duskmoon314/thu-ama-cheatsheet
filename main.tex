@@ -1,0 +1,90 @@
+\documentclass[a4paper,10pt]{ctexart}
+\usepackage[left=.5cm, right=.5cm, top=.5cm, bottom=.5cm]{geometry}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+
+\usepackage[colorlinks]{hyperref}
+\usepackage{fontawesome5}
+
+\usepackage{lipsum}
+
+% ctex 排版设置
+\ctexset{
+    section = {
+        beforeskip = {0ex},
+        afterskip = {0ex},
+    },
+    subsection = {
+        beforeskip = {0ex},
+        afterskip = {0ex},
+    },
+    subsubsection = {
+        beforeskip = {0ex},
+        afterskip = {0ex},
+    },
+}
+\setlength{\parindent}{0pt} % 抑制首行缩进以减少空白
+\setlist{nosep} % 抑制列表项之间的空白
+
+% 数学符号
+\newcommand*{\setN}{\mathbb{N}}
+\newcommand*{\setZ}{\mathbb{Z}}
+\newcommand*{\setQ}{\mathbb{Q}}
+\newcommand*{\setR}{\mathbb{R}}
+\newcommand*{\setC}{\mathbb{C}}
+\newcommand*{\powerset}[1]{\mathscr{P}(#1)}
+\newcommand*{\impl}{\Rightarrow}
+
+\begin{document}
+
+\begin{multicols}{3}
+    \begin{center}
+        {\Large 应用近世代数}
+
+        暮月
+
+        \href{https://github.com/duskmoon314/thu-ama-cheatsheet}{\faGithub \  duskmoon314/thu-ama-cheatsheet}
+    \end{center}
+
+    \section{预备知识}
+
+    \subsection{集合与映射}
+
+    \textbf{常见数集} $\setN, \setZ, \setQ, \setR, \setC$
+
+    \textbf{幂集} A所有子集构成集合，$\powerset{A}$或$2^A$
+
+    \textbf{映射} $f: A \to B$，$f$是A到B的映射
+
+    \begin{itemize}
+        \item[\emph{单射}] $\forall x_1, x_2 \!\in\! A, x_1 \!\neq\! x_2 \!\impl\! f(x_1) \!\neq\! f(x_2) $
+        \item[\emph{满射}] $\forall y \in B, \exists x \in A, f(x) = y$
+        \item[\emph{双射}] 单射且满射
+    \end{itemize}
+
+    \textbf{变换} $f: A \to A$，$f$是A上的变换
+
+    \textbf{复合映射} $fg(x) = f(g(x))$
+
+    \textbf{恒等变换} $I_A(x) = x$
+
+    \textbf{映射的逆} $gf=I_A, fh=I_B$；若同时存在，则$g=h=f^{-1}$
+
+    \subsection{二元关系}
+
+    \subsection{整数与同余}
+
+    \section{群论}
+
+    \section{环论}
+
+    \section{域论}
+
+\end{multicols}
+
+\end{document}
