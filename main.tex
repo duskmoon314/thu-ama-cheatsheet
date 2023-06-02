@@ -4,6 +4,7 @@
 
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathrsfs}
+\usepackage{thmtools}
 
 \usepackage{booktabs}
 \usepackage[shortlabels]{enumitem}
@@ -32,13 +33,34 @@
 \setlist{nosep} % 抑制列表项之间的空白
 
 % 数学符号
+\newcommand*{\bb}[1]{\mathbb{#1}}
 \newcommand*{\setN}{\mathbb{N}}
 \newcommand*{\setZ}{\mathbb{Z}}
 \newcommand*{\setQ}{\mathbb{Q}}
 \newcommand*{\setR}{\mathbb{R}}
 \newcommand*{\setC}{\mathbb{C}}
+\newcommand*{\st}{\text{ s.t. }}
 \newcommand*{\powerset}[1]{\mathscr{P}(#1)}
 \newcommand*{\impl}{\Rightarrow}
+\renewcommand*{\iff}{\Leftrightarrow}
+\renewcommand*{\leq}{\leqslant}
+\renewcommand*{\geq}{\geqslant}
+\newcommand*{\nmsubgroupeq}{\trianglelefteq}
+\newcommand*{\nmsubgroup}{\triangleleft}
+\newcommand*{\gengroup}[1]{\langle #1 \rangle}
+\newcommand*{\genring}[1]{[#1]}
+\newcommand*{\genideal}[1]{(#1)}
+\newcommand*{\genfield}[1]{\langle #1 \rangle}
+\newcommand{\ch}[1]{\text{ch}(#1)}
+\newcommand{\set}[1]{\{#1\}}
+
+% 数学环境
+\declaretheoremstyle[
+    spaceabove=0pt, spacebelow=0pt,
+    headindent=-4pt,
+    notefont=\bfseries,notebraces={}{}
+]{tight-thm}
+\declaretheorem[name=, numbered=no, style=tight-thm]{theorem}
 
 \begin{document}
 
@@ -77,13 +99,378 @@
 
     \subsection{二元关系}
 
+    \textbf{二元运算} $f: S \times S \to S$
+
+    \textbf{二元关系} $\forall a \!\in\! A, b \!\in\! B$可判$\!aRb\!$或$\!aR'b\!$
+
+    \textbf{等价关系} $R$是等价关系$\iff$满足
+
+    \begin{itemize}
+        \item[\emph{自反}] $\forall a \!\in\! A, aRa$
+        \item[\emph{对称}] $\forall a, b \!\in\! A, aRb \impl bRa$
+        \item[\emph{传递}] $\forall a, b, c \!\in\! A, aRb, bRc \impl aRc $
+    \end{itemize}
+
+    \textbf{等价类} $\bar{a} = \{ x | x \in A, xRa \}$ \textbf{代表元}$a$
+
+    \textbf{划分} $\{ A_\alpha | \alpha \in I \}$ 是划分$\iff$满足
+
+    \begin{itemize}
+        \item $\bigcup\limits_{\alpha \in I} A_\alpha = A$
+        \item $\forall \alpha, \beta \in I, \alpha \ne \beta, A_\alpha \bigcap A_\beta = \emptyset$
+    \end{itemize}
+
+    \begin{theorem}[等价与划分]
+        $aRb \iff \exists \alpha \in I, a, b \in A_\alpha$
+    \end{theorem}
+
+    \textbf{偏序} 自反、反对称、传递
+
+    \textbf{全序}
+
     \subsection{整数与同余}
 
     \section{群论}
 
+    \subsection{概念与例子}
+
+    \textbf{群} $(G, \cdot)$ 封结幺逆交
+
+    \begin{theorem}[幺元性质]
+        $e_L = e_R = e$
+    \end{theorem}
+
+    \begin{theorem}[逆元性质]
+        $\forall a \in G, a_L^{-1} = a_R^{-1} = a^{-1}$
+
+        \begin{itemize}
+            \item $(a^{-1})^{-1} = a$
+            \item $(ab)^{-1}=b^{-1}a^{-1}$
+            \item $(a^n)^{-1}=(a^{-1})^n=a^{-n}$
+        \end{itemize}
+    \end{theorem}
+
+    \subsection{内部结构}
+
+    \textbf{子群} $\emptyset \!\neq\! H \!\subseteq\! G$，封结幺逆$\impl H \!\leq\! G$
+
+    \textbf{平凡子群} $\{e\}, G$
+
+    \begin{theorem}[子群判则]
+        以下等价
+        \begin{enumerate}
+            \item $H \leq G$
+            \item $\forall a, b \!\in\! H$，$ab \!\in\! H, a^{-1} \!\in\! H$ （四合二）
+            \item $\forall a, b \!\in\! H$，$ab^{-1} \!\in\! H$ （四合一）
+        \end{enumerate}
+    \end{theorem}
+
+    \begin{theorem}[子群运算律]
+        \hfil
+
+        \begin{enumerate}
+            \item $H \!\leq\! G$，则$H$中幺元为$G$中幺元
+            \item $H_1, H_2 \!\leq\! G$，则$H_1 \!\cap\! H_2 \!\leq\! G$
+            \item $H_1, H_2 \!\leq\! G$，则$H_1 \!\cup\! H_2 \!\leq\! G \!\iff\! H_1 \!\subseteq\! H_2 $或$H_2 \!\subseteq\! H_1$
+            \item $H_1, H_2 \!\leq\! G$，则$H_1 H_2 \!\leq\! G \!\iff\! H_1 H_2 = H_2 H_1 \!\triangleq\! \{h_1h_2 | h_1 \!\in\! H_1, h_2 \!\in\! H_2\}$
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{元素的阶} $a \!\in\! G$，最小$n$使$a^n \!=\! e$，记$o(a)$
+
+    \begin{theorem}[阶的性质]
+        \hfil
+
+        \begin{enumerate}
+            \item $o(e) = 1$, $o(a^{-1}) = o(a)$
+            \item $a^m = e \iff o(a) | m$
+            \item 有限群中所有元素的阶均有限，而无限群不一定存在无限阶元
+            \item 设$o(a) = m, o(b) = n$，若$(m, n) = 1$且$ab = ba$，则$o(ab) = mn$
+            \item $\forall a \!\in\! G \!\setminus\! \{e\}$，若$o(a) = 2$，G交换群
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{生成子群} $S \!\subseteq\! G$，$G$中含$S$的子群交，$\gengroup{S}$
+
+    \textbf{循环子群} 由1个元素生成的子群
+
+    \textbf{极小生成集} $G \! = \! \gengroup{S}$，且任何S的真子集的生成子群均不是G
+
+    极小生成集的元素个数唯一
+
+    \begin{theorem}[循环群性质]
+        \hfil
+
+        \begin{enumerate}
+            \item 循环群必交换
+            \item 循环子群的阶等于生成元的阶
+            \item $\gengroup{a} \cong \begin{cases}
+                          (\setZ, +)        & o(a)=\infty       \\
+                          (\setZ/n\setZ, +) & o(a) = n < \infty \\
+                      \end{cases}$
+            \item 阶数相同的循环群必同构
+            \item $(\setZ, +)\!$子群必为$m\setZ(m \!\in\! \setZ)$形式
+
+                  $(\setZ/n\setZ,\! +)\!$子群同构于$\!(\setZ/d\setZ,\! +)\  d|n$
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{变换群} 非空集合$\Omega$上所有可逆变换全体
+
+    \textbf{置换群(对称群)} 有限集上的变换群$S_n$
+
+    \textbf{置换的共轭} $\tau \sigma \tau^{-1} = \sigma_1$
+
+    \textbf{轮换} $\sigma(i_k) = i_{((k+1))}$，其余不动点
+
+    \textbf{对换(循环)} 长度为2的轮换
+
+    \begin{theorem}[标准轮换分解]
+        $\forall \sigma \in S_n$，可分解为唯一不相交轮换之积$r_1 r_2 \cdots r_s$
+    \end{theorem}
+
+    \textbf{奇(偶)置换} $\sigma$可表为奇(偶)个对换之积
+
+    \textbf{交错群} $A_n = \{ S_n \text{中全体偶置换} \}$
+
+    \begin{theorem}[Cayley定理]
+        任一群$G$必同构于左乘变换群。有限群则$G \!\cong\! G' \!\leq\! S_n$
+    \end{theorem}
+
+    \textbf{左(右)陪集} $\forall a \!\in\! G, H \!\leq\! G, aH(Ha)$
+
+    \begin{theorem}[陪集相等判则]
+        $aH = bH \iff a^{-1}b \in H$
+    \end{theorem}
+
+    \textbf{指数} 左(右)陪集的个数，记$[G\!:\!H](H \!\leq\! G)$
+
+    \begin{theorem}[Lagrange定理]
+        $|G| \! < \! \infty, H \!\leq\! G \!\impl\! |G| \! =\! |H|[G:H]$
+    \end{theorem}
+
+    \begin{theorem}[子群阶]
+        $A, B \!\leq\! G$且有限$\impl |AB| = \frac{ |A| |B| }{ |A \cap B| }$
+    \end{theorem}
+
+    \textbf{正规子群} $H \!\!\leq\!\! G, \forall g \!\in\! G, gH \! = \! Hg$记$H \!\nmsubgroupeq\! G$
+
+    \textbf{单群} 不存在非平凡正规子群的群
+
+    \begin{theorem}[正规子群判则]
+        $H \leq G$，以下等价
+        \begin{enumerate}
+            \item $H \nmsubgroupeq G$
+            \item $\forall g \in G,\forall h \in H, ghg^{-1} \in H$
+            \item $\forall g \in G, gHg^{-1} \subseteq H$
+            \item $\forall g \in G, gHg^{-1} = H$
+        \end{enumerate}
+    \end{theorem}
+
+    \begin{theorem}[正规子群运算律]
+        \hfil
+
+        \begin{enumerate}
+            \item $A \!\nmsubgroupeq\! G, B \!\nmsubgroupeq\! G \!\impl\! A \!\cap\! B \!\nmsubgroupeq\! G, AB \!\nmsubgroupeq\! G$
+            \item $A \!\nmsubgroupeq\! G, B \!\leq\! G \!\impl\! A \!\cap\! B \!\nmsubgroupeq\! B, AB \!\leq\! G$
+            \item $A, B \!\nmsubgroupeq\! G, A \!\cap\! B \! = \! \{e\} \!\impl\! ab \! = \! ba \\ (\forall a \!\in\! A, b \!\in\! B)$
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{换位子} $aba^{-1}b^{-1}$，记作$[a,b]$
+
+    \textbf{换位子群} $\{ \gengroup{aba^{-1}b^{-1}} | a, b \in G \} \nmsubgroupeq G$
+
+    \textbf{商群} $H \!\nmsubgroupeq\! G$，$G/H$在子集乘法下构成群
+
+    \begin{theorem}[素阶元]
+        有限交换群$G$，素数$p|\ |G|$，$G$必有$p$阶元
+    \end{theorem}
+
+    \textbf{中心} $C(G) = \{ x \in G | xg = gx, \forall g \in G\}$
+
+    \textbf{中心化子} $C_G(A) \! = \! \{x \!\in\! G | xa \! = \! ax, \forall a \!\in\! A\}$
+
+    \begin{theorem}[中心化子性质]
+        \hfil
+
+        \begin{enumerate}
+            \item $C_G(a) \cap C_G(b) = C_G(\{a, b\})$
+            \item $\gengroup{a} \subseteq C_G(a) \impl \gengroup{a} \leq C_G(A)$
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{共轭} $a, b \in G, \exists g \in G \st gag^{-1}=b$
+
+    \begin{theorem}[共轭类]
+        $|K_A| < \infty, |K_a| = [G:C_G(a)]$
+    \end{theorem}
+
+    \begin{theorem}[类方程]
+        $|G| \! < \! \infty, |G| \! = \! |C| + \sum\limits_{a \notin C} [G:C_G(a)]$
+    \end{theorem}
+
+    \textbf{共轭子群} $H \leq G, H_1 = gHg^{-1}$
+
+    \textbf{正规化子} $N_G(H) = \{g \in G | gH = Hg\}$
+
+    \begin{theorem}[共轭子群类]
+        $|K_H| \!\! < \!\! \infty, |K_H| \!\! = \!\! [G:N_G(H)]$
+    \end{theorem}
+
+    \subsection{外部联系}
+
+    \textbf{同态} \ 映射 + 保运算
+
+    \textbf{单同态} \ 单射 + 同态 $G \overset{f}{\hookrightarrow} G'$
+
+    \textbf{满同态} \ 满射 + 同态 $G \overset{f}{\twoheadrightarrow} G'$
+
+    \textbf{同构} \ 双射 + 同态 $G \overunderset{\sim}{f}{\rightarrow} G'$
+
+    \begin{theorem}[同态性质]
+        \hfil
+
+        \begin{enumerate}
+            \item 保幺元、逆元、方幂
+            \item 保子群、反向局部保子群
+
+            \item TODO
+        \end{enumerate}
+    \end{theorem}
+
+    \begin{theorem}[同态基本定理]
+        $f: G \rightarrow G', K = \ker f$
+
+        \begin{enumerate}
+            \item $G/K \cong f(G)$，若$f$满，则$G/K \cong G'$
+            \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
+        \end{enumerate}
+    \end{theorem}
+
+    \begin{theorem}[子群对应定理]
+        TODO
+    \end{theorem}
+
+    \begin{theorem}[商群同构定理(第一同构定理)]
+        TODO
+    \end{theorem}
+
+    \begin{theorem}[子群乘积同构定理(第二同构定理)]
+        \hfil
+
+        $N \nmsubgroupeq G, H \leq G \impl HN/N \cong H/(H \cap N)$
+    \end{theorem}
+
+    \subsection{群在集合上的作用}
+
+    \textbf{群作用}
+
+    \textbf{轨道}
+
+    \textbf{不动点}
+
+    \textbf{稳定化子}
+
+    \begin{theorem}[Burnside 引理]
+
+    \end{theorem}
+
     \section{环论}
 
+    \subsection{概念与例子}
+
+    \textbf{环} $(R, +, \cdot)$ 封结幺逆交 + 封结 + 分配律
+
+    \textbf{零元} $0 \cdot a = a \cdot 0 (\forall a \in R)$
+
+    \textbf{负元} $(-a)b = a(-b) = -(ab) (\forall a, b \in R)$
+
+    \textbf{单位} $U(R)$ 可逆元
+
+    \textbf{零因子} $a, b \in R, ab = 0 \wedge a, b \ne 0$
+
+    \textbf{整环} $R\ne \{0\}$，含幺可交换无零因子
+
+    \textbf{除环} $\{0, 1\} \subseteq R, R \setminus \{0\}$构成乘法群
+
+    \subsection{内部结构}
+
+    \textbf{子环} $\emptyset \!\neq\! S \!\subseteq\! R \wedge (S, +, \cdot)$为环
+
+    \begin{theorem}[子环判则]
+
+    \end{theorem}
+
+    \begin{theorem}[子环运算律]
+
+    \end{theorem}
+
+    \textbf{左(右)理想} $\forall a \in I, r \in R, ra \in I (ar \in I)$
+
+    \begin{theorem}[理想判则]
+
+    \end{theorem}
+
+    \textbf{单环} 只有平凡理想 $\{0\}$ 和 $R$ 的环
+
+    \textbf{生成子环} $\emptyset \!\neq\! S \!\subseteq\! R, R$中含$\!S\!$的子环交$\genring{S}$
+
+    \textbf{生成理想} $\emptyset \!\neq\! S \!\subseteq\! R, R$中含$\!S\!$的理想交$\genideal{S}$
+
+    \textbf{主理想} 由1个元素生成的理想
+
+    \textbf{商环}
+
+    \textbf{极大理想}
+
+    \subsection{外部联系}
+
+    \subsection{特殊环}
+
     \section{域论}
+
+    \subsection{域扩张}
+
+    \textbf{子域/扩域} $\emptyset \ne F \subseteq K$，皆为域
+
+    \textbf{生成子域} $S \subseteq F$，$F$中含$S$最小子域，$\genfield{S}$
+
+    \textbf{素域} $F_0 = \genfield{1}$
+
+    \textbf{特征} $\ch{F} = \begin{cases}
+            p & \text{若}o^+(1) = p < \infty \\
+            0 & \text{若}o^+(1) = \infty
+        \end{cases}$
+
+    \begin{theorem}[素域同构]
+        $F_0$是$F$的素域，
+
+        $F_0 \cong \begin{cases}
+                \setQ        & o^+(1) = \infty     \\
+                \setZ/p\setZ & o^+(1) = p < \infty
+            \end{cases}$
+    \end{theorem}
+
+    \textbf{扩张次数} $K/F$，$K$作为$F$-线性空间的维数$\dim_F K$，$(K:F)$
+
+    \begin{theorem}[链式法则]
+        $F\subseteq K \subseteq E, E/F$有限扩张$\iff (E:F)=(E:K)(K:F)$
+    \end{theorem}
+
+    \textbf{添元扩张} $K/F, S\subseteq K$，含$S\cup F$的$K$最小子域为$F(S)$
+
+    \textbf{单扩张} $S = \set{u}, F(u)$
+
+    \textbf{代数元(超越元)} $K/F, u\in K, u$是(否) $F$上某非零多项式$f(x)\in F[x]$根
+
+    \begin{theorem}[单扩张定理]
+
+    \end{theorem}
+
+    \textbf{代数扩张(超越扩张)}
+
+    \textbf{代数闭包}
 
 \end{multicols}
 
