@@ -81,12 +81,12 @@
 
     \textbf{幂集} A所有子集构成集合，$\powerset{A}$或$2^A$
 
-    \textbf{映射} $f: A \to B$，$f$是A到B的映射
+    \textbf{映射} $f: A \to B, x \mapsto f(x) \in B$
 
     \begin{itemize}
         \item[\emph{单射}] $\forall x_1, x_2 \!\in\! A, x_1 \!\neq\! x_2 \!\impl\! f(x_1) \!\neq\! f(x_2) $
-        \item[\emph{满射}] $\forall y \in B, \exists x \in A, f(x) = y$
-        \item[\emph{双射}] 单射且满射
+        \item[\emph{满射}] $f(A) \! = \! B \impl \forall y \!\in\! B, \exists x \!\in\! A, f(x) = y$
+        \item[\emph{双射}] 单射且满射 $\impl$ 可逆
     \end{itemize}
 
     \textbf{变换} $f: A \to A$，$f$是A上的变换
@@ -103,15 +103,15 @@
 
     \textbf{二元关系} $\forall a \!\in\! A, b \!\in\! B$可判$\!aRb\!$或$\!aR'b\!$
 
-    \textbf{等价关系} $R$是等价关系$\iff$满足
+    \textbf{等价关系} $\sim$是等价关系$\iff$满足
 
     \begin{itemize}
-        \item[\emph{自反}] $\forall a \!\in\! A, aRa$
-        \item[\emph{对称}] $\forall a, b \!\in\! A, aRb \impl bRa$
-        \item[\emph{传递}] $\forall a, b, c \!\in\! A, aRb, bRc \impl aRc $
+        \item[\emph{反身}] $\forall a \!\in\! A, a \sim a$
+        \item[\emph{对称}] $\forall a, b \!\in\! A, a \sim b \impl b \sim a$
+        \item[\emph{传递}] $\forall a, b, c \!\in\! A, a \sim b, b \sim c \impl a \sim c $
     \end{itemize}
 
-    \textbf{等价类} $\bar{a} = \{ x | x \in A, xRa \}$ \textbf{代表元}$a$
+    \textbf{等价类} $\bar{a} = \{ x | x \in A, x \sim a \}$ \textbf{代表元}$a$
 
     \textbf{划分} $\{ A_\alpha | \alpha \in I \}$ 是划分$\iff$满足
 
@@ -121,20 +121,43 @@
     \end{itemize}
 
     \begin{theorem}[等价与划分]
-        $aRb \iff \exists \alpha \in I, a, b \in A_\alpha$
+        $a \sim b \iff \exists \alpha \in I, a, b \in A_\alpha$
     \end{theorem}
 
-    \textbf{偏序} 自反、反对称、传递
+    \textbf{商集} $A/\sim = \{ \bar{a} | a \in A \}$
 
-    \textbf{全序}
+    \textbf{偏序} 反身、反对称、传递
+
+    \textbf{全序} 偏序且$\forall x, y \in S, x \leq y$或$y \leq x$
 
     \subsection{整数与同余}
+
+    \begin{theorem}[Bézout定理]
+        $a, b \in \setZ^*, \exists p, q \in \setZ \st pa + qb = \gcd(a, b) = d$
+    \end{theorem}
+
+    \begin{theorem}[gcd \& lcm]
+        $(a, b)[a, b] = ab$
+    \end{theorem}
+
+    \textbf{一次同余方程} $ax \equiv b \pmod{m} (a \ne 0 \pmod{m}) \iff (a, m) \mid b$\\
+    通解$x \equiv pb_1 \pmod{m_1}$ $(a = a_1(a, m), b = b_1(a, m), m = m_1(a, m), pa_1 +qm_1 = 1)$
+
+    \textbf{一次同余方程组} $\begin{cases}
+            x \equiv b_1 \pmod{m_1} \\
+            \cdots                  \\
+            x \equiv b_k \pmod{m_k}
+        \end{cases}$\\
+    通解$x \equiv \sum_{i=1}^k b_i c_i M_i \pmod{M}$\\
+    $M \! = \! \prod\limits_{i=1}^k m_i, M_i \! = \! \frac{M}{m_i}, M_i c_i \equiv 1 \pmod{m_i}$
 
     \section{群论}
 
     \subsection{概念与例子}
 
-    \textbf{群} $(G, \cdot)$ 封结幺逆交
+    \textbf{群} $(G, \cdot)$ 封结幺逆(交)
+
+    \textbf{例} 数群、剩余类群、矩阵群、Klein四元群
 
     \begin{theorem}[幺元性质]
         $e_L = e_R = e$
@@ -152,6 +175,8 @@
 
     \subsection{内部结构}
 
+    \subsubsection{子群}
+
     \textbf{子群} $\emptyset \!\neq\! H \!\subseteq\! G$，封结幺逆$\impl H \!\leq\! G$
 
     \textbf{平凡子群} $\{e\}, G$
@@ -165,14 +190,14 @@
         \end{enumerate}
     \end{theorem}
 
-    \begin{theorem}[子群运算律]
+    \begin{theorem}[子群运算律($H_1, H_2 \!\leq\! G$)]
         \hfil
 
         \begin{enumerate}
             \item $H \!\leq\! G$，则$H$中幺元为$G$中幺元
-            \item $H_1, H_2 \!\leq\! G$，则$H_1 \!\cap\! H_2 \!\leq\! G$
-            \item $H_1, H_2 \!\leq\! G$，则$H_1 \!\cup\! H_2 \!\leq\! G \!\iff\! H_1 \!\subseteq\! H_2 $或$H_2 \!\subseteq\! H_1$
-            \item $H_1, H_2 \!\leq\! G$，则$H_1 H_2 \!\leq\! G \!\iff\! H_1 H_2 = H_2 H_1 \!\triangleq\! \{h_1h_2 | h_1 \!\in\! H_1, h_2 \!\in\! H_2\}$
+            \item $H_1 \!\cap\! H_2 \!\leq\! G$
+            \item $H_1 \!\cup\! H_2 \!\leq\! G \!\iff\! H_1 \!\subseteq\! H_2 $或$H_2 \!\subseteq\! H_1$
+            \item $H_1 H_2 \!\leq\! G \!\iff\! H_1 H_2 = H_2 H_1 \\ \!\triangleq\! \{h_1h_2 | h_1 \!\in\! H_1, h_2 \!\in\! H_2\}$
         \end{enumerate}
     \end{theorem}
 
@@ -189,6 +214,8 @@
             \item $\forall a \!\in\! G \!\setminus\! \{e\}$，若$o(a) = 2$，G交换群
         \end{enumerate}
     \end{theorem}
+
+    \subsubsection{生成子群 \& 循环群}
 
     \textbf{生成子群} $S \!\subseteq\! G$，$G$中含$S$的子群交，$\gengroup{S}$
 
@@ -215,6 +242,8 @@
         \end{enumerate}
     \end{theorem}
 
+    \subsubsection{置换群}
+
     \textbf{变换群} 非空集合$\Omega$上所有可逆变换全体
 
     \textbf{置换群(对称群)} 有限集上的变换群$S_n$
@@ -233,9 +262,15 @@
 
     \textbf{交错群} $A_n = \{ S_n \text{中全体偶置换} \}$
 
+    \begin{theorem}[置换群性质]
+        任意置换群全偶或奇偶各半
+    \end{theorem}
+
     \begin{theorem}[Cayley定理]
         任一群$G$必同构于左乘变换群。有限群则$G \!\cong\! G' \!\leq\! S_n$
     \end{theorem}
+
+    \subsubsection{子群陪集}
 
     \textbf{左(右)陪集} $\forall a \!\in\! G, H \!\leq\! G, aH(Ha)$
 
@@ -246,12 +281,25 @@
     \textbf{指数} 左(右)陪集的个数，记$[G\!:\!H](H \!\leq\! G)$
 
     \begin{theorem}[Lagrange定理]
-        $|G| \! < \! \infty, H \!\leq\! G \!\impl\! |G| \! =\! |H|[G:H]$
+        $|G| \! < \! \infty, H \!\leq\! G \!\impl\! |G| \! = \! |H|[G:H]$
+    \end{theorem}
+
+    \begin{theorem}[指数性质]
+        \hfil
+
+        \begin{enumerate}
+            \item $|G| < \infty, |H| \mid |G|, \forall a \in G, o(a) \mid |G|$
+            \item $K \!\leq\! H \!\leq\! G \!\impl\! [G\!:\!K] \! = \! [G\!:\!H][H\!:\!K]$
+        \end{enumerate}
     \end{theorem}
 
     \begin{theorem}[子群阶]
         $A, B \!\leq\! G$且有限$\impl |AB| = \frac{ |A| |B| }{ |A \cap B| }$
     \end{theorem}
+
+    \textbf{四阶群} $S_4$和Klein四元群
+
+    \subsubsection{正规子群 \& 商群}
 
     \textbf{正规子群} $H \!\!\leq\!\! G, \forall g \!\in\! G, gH \! = \! Hg$记$H \!\nmsubgroupeq\! G$
 
@@ -287,6 +335,8 @@
         有限交换群$G$，素数$p|\ |G|$，$G$必有$p$阶元
     \end{theorem}
 
+    \subsubsection{中心化子 \& 共轭子群}
+
     \textbf{中心} $C(G) = \{ x \in G | xg = gx, \forall g \in G\}$
 
     \textbf{中心化子} $C_G(A) \! = \! \{x \!\in\! G | xa \! = \! ax, \forall a \!\in\! A\}$
@@ -318,7 +368,7 @@
         $|K_H| \!\! < \!\! \infty, |K_H| \!\! = \!\! [G:N_G(H)]$
     \end{theorem}
 
-    \subsection{外部联系}
+    \subsection{外部联系(群同态)}
 
     \textbf{同态} \ 映射 + 保运算
 
@@ -396,6 +446,8 @@
 
     \subsection{内部结构}
 
+    \subsubsection{子环、理想和商环}
+
     \textbf{子环} $\emptyset \!\neq\! S \!\subseteq\! R \wedge (S, +, \cdot)$为环
 
     \begin{theorem}[子环判则]
@@ -424,7 +476,7 @@
 
     \textbf{极大理想}
 
-    \subsection{外部联系}
+    \subsection{外部联系(环同态)}
 
     \subsection{特殊环}
 
