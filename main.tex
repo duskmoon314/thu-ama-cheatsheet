@@ -5,6 +5,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathrsfs}
 \usepackage{thmtools}
+\usepackage{stmaryrd}
 
 \usepackage{booktabs}
 \usepackage[shortlabels]{enumitem}
@@ -12,7 +13,9 @@
 \usepackage[colorlinks]{hyperref}
 \usepackage{fontawesome5}
 
-\usepackage{lipsum}
+\usepackage{tikz-cd}
+
+\usepackage{xargs}
 
 % ctex 排版设置
 \ctexset{
@@ -40,19 +43,25 @@
 \newcommand*{\setR}{\mathbb{R}}
 \newcommand*{\setC}{\mathbb{C}}
 \newcommand*{\st}{\text{ s.t. }}
+\newcommand*{\stab}{\text{stab}}
 \newcommand*{\powerset}[1]{\mathscr{P}(#1)}
 \newcommand*{\impl}{\Rightarrow}
 \renewcommand*{\iff}{\Leftrightarrow}
 \renewcommand*{\leq}{\leqslant}
 \renewcommand*{\geq}{\geqslant}
-\newcommand*{\nmsubgroupeq}{\trianglelefteq}
+\newcommand*{\nmsubgroupeq}{\trianglelefteqslant}
 \newcommand*{\nmsubgroup}{\triangleleft}
 \newcommand*{\gengroup}[1]{\langle #1 \rangle}
 \newcommand*{\genring}[1]{[#1]}
 \newcommand*{\genideal}[1]{(#1)}
 \newcommand*{\genfield}[1]{\langle #1 \rangle}
-\newcommand{\ch}[1]{\text{ch}(#1)}
-\newcommand{\set}[1]{\{#1\}}
+\newcommand*{\ch}[1]{\text{ch}(#1)}
+\newcommand*{\set}[1]{\{#1\}}
+\newcommandx*\homo[3][3=]{#1 \overset{#3}{\rightarrow} #2}
+\newcommandx*\mono[3][3=]{#1 \overset{#3}{\hookrightarrow} #2}
+\newcommandx*\epi[3][3=]{#1 \overset{#3}{\twoheadrightarrow} #2}
+\newcommandx*\iso[3][3=]{#1 \overunderset{\sim}{#3}{\rightarrow} #2}
+\newcommand*{\ff}[1]{\bb{F}_{#1}}
 
 % 数学环境
 \declaretheoremstyle[
@@ -71,6 +80,8 @@
         暮月
 
         \href{https://github.com/duskmoon314/thu-ama-cheatsheet}{\faGithub \  duskmoon314/thu-ama-cheatsheet}
+
+        \vspace*{-1em}
     \end{center}
 
     \section{预备知识}
@@ -145,7 +156,6 @@
 
     \textbf{一次同余方程组} $\begin{cases}
             x \equiv b_1 \pmod{m_1} \\
-            \cdots                  \\
             x \equiv b_k \pmod{m_k}
         \end{cases}$\\
     通解$x \equiv \sum_{i=1}^k b_i c_i M_i \pmod{M}$\\
@@ -297,13 +307,15 @@
         $A, B \!\leq\! G$且有限$\impl |AB| = \frac{ |A| |B| }{ |A \cap B| }$
     \end{theorem}
 
-    \textbf{四阶群} $S_4$和Klein四元群
+    \textbf{四阶群} $C_4$和Klein四元群
 
     \subsubsection{正规子群 \& 商群}
 
     \textbf{正规子群} $H \!\!\leq\!\! G, \forall g \!\in\! G, gH \! = \! Hg$记$H \!\nmsubgroupeq\! G$
 
-    \textbf{单群} 不存在非平凡正规子群的群
+    \textbf{单群\ } 不存在非平凡正规子群的群
+
+    \textbf{典例\ } 指数为2的子群必正规
 
     \begin{theorem}[正规子群判则]
         $H \leq G$，以下等价
@@ -329,7 +341,7 @@
 
     \textbf{换位子群} $\{ \gengroup{aba^{-1}b^{-1}} | a, b \in G \} \nmsubgroupeq G$
 
-    \textbf{商群} $H \!\nmsubgroupeq\! G$，$G/H$在子集乘法下构成群
+    \textbf{商群} $H \!\nmsubgroupeq\! G$，$G/H = \{ aH | a \in G \}$
 
     \begin{theorem}[素阶元]
         有限交换群$G$，素数$p|\ |G|$，$G$必有$p$阶元
@@ -346,29 +358,39 @@
 
         \begin{enumerate}
             \item $C_G(a) \cap C_G(b) = C_G(\{a, b\})$
-            \item $\gengroup{a} \subseteq C_G(a) \impl \gengroup{a} \leq C_G(A)$
+            \item $\gengroup{a} \leq C_G(a)$
+            \item $\{e\} \!\leq\! C(G) \!\leq\! C_G(a) \!\leq\! C_G(A) \!\leq\! G$
         \end{enumerate}
     \end{theorem}
 
     \textbf{共轭} $a, b \in G, \exists g \in G \st gag^{-1}=b$
 
-    \begin{theorem}[共轭类]
-        $|K_A| < \infty, |K_a| = [G:C_G(a)]$
+    \textbf{共轭类} $K_a = \{ gag^{-1} | g \in G \}$
+
+    \begin{theorem}[共轭子群基数定理]
+        $|K_a| = [G:C_G(a)]$
     \end{theorem}
 
     \begin{theorem}[类方程]
         $|G| \! < \! \infty, |G| \! = \! |C| + \sum\limits_{a \notin C} [G:C_G(a)]$
     \end{theorem}
 
-    \textbf{共轭子群} $H \leq G, H_1 = gHg^{-1}$
+    \textbf{共轭子群} $H \leq G, K = gHg^{-1}$
 
     \textbf{正规化子} $N_G(H) = \{g \in G | gH = Hg\}$
 
-    \begin{theorem}[共轭子群类]
-        $|K_H| \!\! < \!\! \infty, |K_H| \!\! = \!\! [G:N_G(H)]$
+    \textbf{共轭子群类} $K_H = \{gHg^{-1} | g \in G\}$
+
+    \begin{theorem}[共轭子群类基数定理]
+        $|K_H| \!\! = \!\! [G:N_G(H)]$
     \end{theorem}
 
-    \subsection{外部联系(群同态)}
+    \begin{theorem}[类方程2]
+        $|\mathcal{A}| = |\mathcal{N}| + \sum\limits_{H \notin \mathcal{N}} [G:N_G(H)]$ \\
+        $\mathcal{A} = \{ H | H \leq G \}, \mathcal{N} = \{ H | H \nmsubgroupeq G \}$
+    \end{theorem}
+
+    \subsection{外部联系(群同态)} \label{sec:group-homomorphism}
 
     \textbf{同态} \ 映射 + 保运算
 
@@ -378,14 +400,20 @@
 
     \textbf{同构} \ 双射 + 同态 $G \overunderset{\sim}{f}{\rightarrow} G'$
 
+    \textbf{核} $\ker f = \{ a \in G | f(a) = e' \} \nmsubgroupeq G$
+
     \begin{theorem}[同态性质]
         \hfil
 
         \begin{enumerate}
             \item 保幺元、逆元、方幂
-            \item 保子群、反向局部保子群
-
-            \item TODO
+            \item 保子群 $H \leq G \impl f(H) \leq G'$\\
+                  $H \!\nmsubgroupeq\! G \!\impl\! f(H) \!\nmsubgroupeq\! f(G)$
+            \item 反向局部保(正规)子群 \\
+                  $N \!\leq\! f(G) \!\impl\! f^{-1}(N) \!\leq\! G$
+            \item 保阶为因子 $o(a) \!<\! \infty \!\impl\! o(f(a)) | o(a)$
+            \item $f(a) = a' \impl f^{-1}(a') = a \cdot \ker f$
+            \item $f$单同态$\impl \ker f = \{e\}$
         \end{enumerate}
     \end{theorem}
 
@@ -396,14 +424,25 @@
             \item $G/K \cong f(G)$，若$f$满，则$G/K \cong G'$
             \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
         \end{enumerate}
+
+        \begin{tikzcd}[column sep = tiny, row sep = small]
+            G \arrow[rr, "f", two heads] \arrow[dr, "\pi"', two heads] && {G'}  \\
+            & {G/K} \arrow[ur, "\sim", "\bar{f}"']
+        \end{tikzcd}
+        \begin{tikzcd}[row sep = small]
+            G \arrow[r, "f"] \arrow[d, "\pi"', two heads] & {G'} \\
+            {G/K} \arrow[r, "\sim", "\bar{f}"'] & {f(G)} \arrow[u, "j"', hook]
+        \end{tikzcd}
     \end{theorem}
 
     \begin{theorem}[子群对应定理]
-        TODO
+        $f: \epi{G}{G'}, K = \ker f, S = \{ H | K \leq H \leq G \}, S' = \{ N | N \leq G' \}$，则$S$与$S'$一一对应
     \end{theorem}
 
     \begin{theorem}[商群同构定理(第一同构定理)]
-        TODO
+        \hfil
+
+        $f: \epi{G}{G'}, K = \ker f \leq H \nmsubgroupeq G \impl f(H) \nmsubgroupeq G', G/H \cong G'/f(H) \cong \frac{G/K}{H/K}$
     \end{theorem}
 
     \begin{theorem}[子群乘积同构定理(第二同构定理)]
@@ -412,31 +451,43 @@
         $N \nmsubgroupeq G, H \leq G \impl HN/N \cong H/(H \cap N)$
     \end{theorem}
 
+    \begin{theorem}[推论]
+        \hfil
+        \begin{enumerate}
+            \item $N \!\nmsubgroupeq\! H \!\nmsubgroupeq\! G, N \!\nmsubgroupeq\! G \!\impl\! \frac{G/N}{H/N} \!\cong\! G/H$
+            \item $N$是极大正规子群$\iff G/N$是单群
+        \end{enumerate}
+    \end{theorem}
+
     \subsection{群在集合上的作用}
 
-    \textbf{群作用}
+    \textbf{群作用} $\forall g \in G \iff \Omega$上$g(x)$且单位、相容
 
-    \textbf{轨道}
+    \textbf{轨道} $\Omega_x = \{ g(x) | g \in G \}$，代表元$x$
 
-    \textbf{不动点}
+    \textbf{不动点} $g(x) = x$
 
-    \textbf{稳定化子}
+    \textbf{可迁} $\forall x, y \in \Omega, \exists g \in G, g(x) = y$
+
+    \textbf{稳定化子} $G_x \! = \! \{ g \!\in\! G | g(x) \! = \! x \} \!\leq\! G$
+
+    \textbf{轨道公式} $|\Omega_x| = |G : G_x|, |G| = |\Omega_x||G_x|$
 
     \begin{theorem}[Burnside 引理]
-
+        $G$作用$\Omega$，轨道数$N$，$g$在$\Omega$中不动点数$\chi(g)$，则$N = \frac{1}{|G|} \sum\limits_{g \in G} \chi(g)$
     \end{theorem}
 
     \section{环论}
 
     \subsection{概念与例子}
 
-    \textbf{环} $(R, +, \cdot)$ 封结幺逆交 + 封结 + 分配律
+    \textbf{环} $(R, +, \cdot)$ 加交换群 + 乘半群 + 分配律
 
     \textbf{零元} $0 \cdot a = a \cdot 0 (\forall a \in R)$
 
     \textbf{负元} $(-a)b = a(-b) = -(ab) (\forall a, b \in R)$
 
-    \textbf{单位} $U(R)$ 可逆元
+    \textbf{单位} $U(R)$ 可逆元(必非零因子)
 
     \textbf{零因子} $a, b \in R, ab = 0 \wedge a, b \ne 0$
 
@@ -444,41 +495,101 @@
 
     \textbf{除环} $\{0, 1\} \subseteq R, R \setminus \{0\}$构成乘法群
 
+    非零有限无零因子是除环$\!\impl\!$有限整环是域
+
     \subsection{内部结构}
 
     \subsubsection{子环、理想和商环}
 
-    \textbf{子环} $\emptyset \!\neq\! S \!\subseteq\! R \wedge (S, +, \cdot)$为环
+    \textbf{子环} $\emptyset \!\neq\! S \!\subseteq\! R \wedge (S, +, \cdot)$为环，$S \leq R$
 
     \begin{theorem}[子环判则]
-
+        $\forall a, b \in S, a - b, ab \in S$
     \end{theorem}
 
     \begin{theorem}[子环运算律]
-
+        $S_1, S_2 \leq R$
+        \begin{enumerate}
+            \item $S_1 \cap S_2 \leq R$
+            \item $S_1 \cup S_2, S_1 + S_2, S_1S_2$不一定
+        \end{enumerate}
     \end{theorem}
 
     \textbf{左(右)理想} $\forall a \in I, r \in R, ra \in I (ar \in I)$
 
-    \begin{theorem}[理想判则]
+    $R$含幺，$I \! = \! R \iff 1 \!\in\! I \iff u \!\in\! I (\forall u \!\in\! U(R))$
 
+    \begin{theorem}[理想判则]
+        $\forall a, b \!\in\! I, \forall r \!\in\! R, ra, ar, a-b \in I$
     \end{theorem}
 
-    \textbf{单环} 只有平凡理想 $\{0\}$ 和 $R$ 的环
+    \begin{theorem}[理想运算律]
+        $I, J$是，$I \cap J, I + J, IJ$也是
+    \end{theorem}
+
+    \textbf{单环\ } 只有平凡理想 $\{0\}$ 和 $R$ 的环
 
     \textbf{生成子环} $\emptyset \!\neq\! S \!\subseteq\! R, R$中含$\!S\!$的子环交$\genring{S}$
 
     \textbf{生成理想} $\emptyset \!\neq\! S \!\subseteq\! R, R$中含$\!S\!$的理想交$\genideal{S}$
 
-    \textbf{主理想} 由1个元素生成的理想
+    \textbf{主理想\ } 由1个元素生成的理想
 
-    \textbf{商环}
+    \textbf{商环} $R$和$I$的加法商群引入乘法，$R/I$
 
-    \textbf{极大理想}
+    \textbf{极大理想} $M$非平凡，无更大非平凡理想
+
+    $R$含幺交换，$M$极大$\iff R/M$是域
 
     \subsection{外部联系(环同态)}
 
+    参见群同态(\ref{sec:group-homomorphism})
+
     \subsection{特殊环}
+
+    \textbf{因子、倍元、整除} $\exists c \in D, a = bc, b | a$
+
+    \textbf{相伴} $a \sim b: a | b, b | a$
+
+    \textbf{真因子} $a = bc, b, c \notin U(D)$
+
+    \textbf{既约元} $p \in D \setminus (\{ 0 \} \cup U(D))$，无真因子
+
+    \textbf{素元} $p | ab \impl p | a \vee p | b$
+
+    含幺整环$D$中素元必为既约元，反之不然
+
+    \textbf{gcd} $d \sim (a, b): d|a \wedge d|b \wedge \forall c, c|a \wedge c|b \impl c|d$
+
+    \begin{theorem}[gcd性质]
+        \hfil
+
+        \begin{enumerate}
+            \item $(a, (b, c)) \sim ((a, b), c)$
+            \item $c(a, b) \sim (ca, cb)$
+            \item \textbf{互素} $(a, b) \sim 1$
+            \item GCD条件 $\impl$ 素性条件
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{GCD条件} $D$中任两不全0元素均有gcd
+
+    \textbf{素性条件} $D$中的每个既约元也是素元
+
+    \textbf{因子链条件} $D$中任真因子链只有有限项
+
+    \textbf{UFD} $\forall a \!\in\! D \setminus (\{ 0 \} \!\cup\! U(D)), a \! = \! \prod p_i^{\epsilon_i}$唯一\\
+    UFD $\iff$ GCD + 素性 $\iff$ 素性 + 因子链
+
+    \textbf{PID} $D$的任意理想都是主理想 $\subset$ UFD
+
+    \textbf{ED 范数} $\exists v: \homo{D^*}{\setZ^+}, \forall a, b \!\in\! D, \exists q, r \!\in\! D \st b \! = \! aq + r, r \! = \! 0 \!\vee v(r) \!<\! v(a) \subset$ PID
+
+    \textbf{本原多项式} $\varphi(x) \!\ne\! 0 \!\in\! D[x], (a_0 \cdots a_n) \sim 1$
+
+    \textbf{有理根判则} $f(x) \in D[x], \frac{r}{s}$满足$f(\frac{r}{s}) = 0, (r, s) \sim 1$，则$r | a_0, s | a_n$
+
+    \textbf{Eisenstein判则} $f(x) \!\in\! D[x], p$满足$p \!\nmid\! a_n, p | a_i (0 \!\leq\! i \!<\! n), p^2 \nmid a_0$，则$f(x)$不可约
 
     \section{域论}
 
@@ -516,13 +627,53 @@
 
     \textbf{代数元(超越元)} $K/F, u\in K, u$是(否) $F$上某非零多项式$f(x)\in F[x]$根
 
-    \begin{theorem}[单扩张定理]
+    \textbf{最小多项式} $F$上$u$为根首一次数最小($n$)多项式$m_u(x), u$为$n$次代数元
 
+    \begin{theorem}[单扩张定理]
+        $E/F, u \in E$，则\\
+        $F(u) \cong \begin{cases}
+                \{ \sum a_i u^i | a_i \in F \} \cong F[x]/(m_u(x)) \\
+                \{ \frac{f(x)}{g(x)} | f,g \in F[x] \} \cong F(x)
+            \end{cases}$\\
+        $(F(u)\!:\!F) = \deg m_u(x) (\text{代数元}), \infty (\text{超越元})$
     \end{theorem}
 
-    \textbf{代数扩张(超越扩张)}
+    \textbf{代数扩张(超越扩张)} $K/F, u \in K$均为代数元，否则(只须1个)为超越扩张
 
-    \textbf{代数闭包}
+    \begin{theorem}[代数扩张性质]
+        \hfil
+
+        \begin{enumerate}
+            \item $a, b \in E/F, (F(a)\!:\!F) \! = \! m, (F(b)\!:\!F) \! = \! n, (F(a,b)\!:\!F) \!\leq\! mn$
+            \item $a,b \!\in\! E/F$为$F$代数元，四则运算\checkmark
+            \item 有限扩张$\impl$代数扩张，反之不然
+            \item $K/F, E/K$代数扩，$E/F$代数扩
+        \end{enumerate}
+    \end{theorem}
+
+    \textbf{代数闭包} $F$扩全体代数元，$F^{AC}$
+
+    \subsection{有限域}
+
+    \textbf{构造} $p^n$阶有限域存在且同构唯一\\
+    $\ff{p^n} \cong \begin{cases}
+            \ff{p}(\beta) = \ff{p}[x]/(f(x))          \\
+            \{\sum a_i \beta^i | a_i \in \ff{p}\}     \\
+            \{x^{p^n} = x \text{在$\ff{p}^{AC}$的全部根}\} \\
+            \{0\} \cup \genfield{\alpha}, \alpha\text{为$\ff{p^n}$的本原元}
+        \end{cases}$
+
+    \textbf{本原元} $\ff{p^n}^*$中$o_\times(\alpha) = p^n - 1$
+
+    \textbf{子域} $\ff{p^m} \leq \ff{p^n} \iff m | n$
+
+    \begin{theorem}[多项式根]
+        $f(x) \in \ff{q}[x]$为$n$次不可约，$u$为$\ff{q}^{AC}$一根，则全部根为$u, u^q,\cdots,u^{q^{n-1}}$
+    \end{theorem}
+
+    \begin{theorem}[一篮子分解]
+        $x^{p^n} \! - \! x \! = \! \prod\limits_{d|n} g(x), g(x)$不可约
+    \end{theorem}
 
 \end{multicols}
 
