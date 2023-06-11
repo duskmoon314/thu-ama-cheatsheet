@@ -1,5 +1,5 @@
-\documentclass[a4paper,10pt]{ctexart}
-\usepackage[left=.5cm, right=.5cm, top=.5cm, bottom=.5cm]{geometry}
+\documentclass[b4paper, 10pt]{ctexart}
+\usepackage[margin=0.5cm]{geometry}
 \usepackage{multicol}
 
 \usepackage{amsmath,amssymb,amsthm}
@@ -154,7 +154,7 @@
     \end{theorem}
 
     \textbf{一次同余方程} $ax \!\equiv\! b \pmod{m} \iff (a, m) \!\mid\! b$\\
-    通解$x \equiv pb_1 \pmod{m_1}$ $(a = a_1(a, m), b = b_1(a, m), m = m_1(a, m), pa_1 +qm_1 = 1)$
+    通解$x \!\!\equiv\!\! pb_1 \pmod{m_1} (a \!\! = \!\! a_1(a, m), b \!\! = \!\! b_1(a, m), \\ m = m_1(a, m), pa_1 +qm_1 = 1)$
 
     \textbf{一次同余方程组} $\begin{cases}
             x \equiv b_1 \pmod{m_1} \\
@@ -289,7 +289,7 @@
     \textbf{指数} 左(右)陪集的个数，记$[G\!:\!H](H \!\leq\! G)$
 
     \begin{theorem}[Lagrange定理]
-        $H \!\leq\! G \!\impl\! |G| \! = \! |H|[G:H]$
+        $|G| \!\! < \!\! \infty, H \!\!\leq\!\! G \!\!\impl\!\! |G| \!\! = \!\! |H|[G\!:\!H]$
     \end{theorem}
 
     \begin{theorem}[指数性质]
@@ -364,7 +364,7 @@
     \textbf{共轭类} $K_a = \{ gag^{-1} | g \in G \}$
 
     \begin{theorem}[共轭子群基数定理]
-        $|K_a| = [G:C_G(a)]$
+        $\infty > |K_a| = [G:C_G(a)]$
     \end{theorem}
 
     \begin{theorem}[类方程]
@@ -378,7 +378,7 @@
     \textbf{共轭子群类} $K_H = \{gHg^{-1} | g \in G\}$
 
     \begin{theorem}[共轭子群类基数定理]
-        $|K_H| \!\! = \!\! [G:N_G(H)]$
+        $\infty > |K_H| \!\! = \!\! [G:N_G(H)]$
     \end{theorem}
 
     \begin{theorem}[类方程2]
@@ -418,7 +418,8 @@
 
         \begin{enumerate}
             \item $G/K \cong f(G)$，若$f$满，则$G/K \cong G'$
-            \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
+            \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl \\
+                      f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
         \end{enumerate}
 
         \begin{tikzcd}[column sep = tiny, row sep = small]
@@ -531,7 +532,9 @@
 
     \textbf{主理想\ } 由1个元素生成的理想
 
-    \textbf{素理想} $P \nmsubgroupeq R$换，$ab \in P \impl a \in P \vee b \in P$
+    \textbf{素理想} $P \nmsubgroupeq R$交换，$ab \in P \impl a \in P \vee b \in P$
+
+    素理想$P, R/P$为整环
 
     \textbf{商环} $R$和$I$的加法商群引入乘法，$R/I$
 
@@ -587,7 +590,8 @@
 
     \textbf{有理根判则} $f(x) \in D[x], \frac{r}{s}$满足$f(\frac{r}{s}) = 0, (r, s) \sim 1$，则$r | a_0, s | a_n$
 
-    \textbf{Eisenstein判则} $f(x) \!\in\! D[x], p$满足$p \!\nmid\! a_n, p | a_i (0 \!\leq\! i \!<\! n), p^2 \nmid a_0$，则$f(x)$不可约
+    \textbf{Eisenstein判则} $f(x) \!\in\! D[x], p$满足\\
+    $p \!\nmid\! a_n, p | a_i (0 \!\leq\! i \!<\! n), p^2 \nmid a_0$，则$f(x)$不可约
 
     \section{域论}
 
@@ -604,6 +608,8 @@
             0 & \text{若}o^+(1) = \infty
         \end{cases}$
 
+    $(a \pm b)^{p^e} = a^{p^e} \pm b^{p^e}$
+
     \begin{theorem}[素域同构]
         $F_0$是$F$的素域，
 
@@ -619,7 +625,7 @@
         $F\subseteq K \subseteq E, E/F$有限扩张$\iff (E:F)=(E:K)(K:F)$
     \end{theorem}
 
-    \textbf{添元扩张} $K/F, S\subseteq K$，含$S\cup F$的$K$最小子域为$F(S)$
+    \textbf{添元扩张} $K/F, S \!\!\subseteq\!\! K$含$S \!\cup\! F$的$K$最小子域$F(S)$
 
     \textbf{单扩张} $S = \set{u}, F(u)$
 
@@ -668,7 +674,7 @@
     \textbf{子域} $\ff{p^m} \leq \ff{p^n} \iff m | n$
 
     \begin{theorem}[多项式根]
-        $f(x) \in \ff{q}[x]$为$n$次不可约，$u$为$\ff{q}^{AC}$一根，则全部根为$u, u^q,\cdots,u^{q^{n-1}}$
+        $f(x) \in \ff{q}[x]$为$n$次不可约($q=p^s$)，$u$为$\ff{q}^{AC}$一根，则全部根为$u, u^q,\cdots,u^{q^{n-1}}$
     \end{theorem}
 
     \begin{theorem}[一篮子分解]
@@ -679,19 +685,24 @@
 
     \begin{enumerate}
         \item 唯二四阶群$C_4$和Klein四元群
-        \item $S_3$ 最小非交换群\\
+        \item $S_3$ 最小非交换群 ($|G| = p, G = C_p$)\\
               $\{(1), (123), (132)\} \nmsubgroupeq S_3$ \\
               $C((123)) = \{ (1), (123), (132) \}$ \\
               $N(\gengroup{(12)}) = \{ (1), (12) \}$
         \item $D_n = \{\rho^i \pi^j | 0 \leq i \leq n - 1, j = 0, 1 \}$ \\
-              子群$\gengroup{\rho}, \gengroup{\pi}, \gengroup{\rho^k, \rho^l\pi} (k | n, 0 \!\leq\! l \!<\! k)$
+              子群$\gengroup{\rho}, \gengroup{\rho^d}, \gengroup{\pi}, \gengroup{\rho^k \pi}, \gengroup{\rho^k, \rho^l\pi}$ \\
+              共$\sum_{k|n} 1 + \sum_{k|n} k$个
         \item $S_n$中$1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n}$型置换数\\
               $\frac{n!}{1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n} \lambda_1! \lambda_2! \cdots \lambda_n!}$
         \item $K_4 \nmsubgroupeq S_4, S_4/K_4 \cong S_3$
         \item $n \geq 5, A_n$是单群
+        \item 幺换环: 数环、剩余类环
+        \item 非换环: 矩阵环、映射环
         \item UFD: $\setZ[x]$\\
               $\setZ[x]$中本原多项式如$x^3 + x^2 + 1$
+        \item $D \!\setminus\! UFD$: $\setZ[\sqrt{-5}]$
         \item PID: $F[x]$
+        \item $UFD \!\setminus\! PID$: $\setZ[x]$
         \item ED: $\setZ, F[x], \setZ[i]$
         \item $\setC = \setR(i), (\setC : \setR) = 2$
         \item $\ff{2^2} \! = \! \{ 0, 1, \alpha, \alpha^2 \}$有3次本原多项式$x^3 + x + 1$和$x^3 + x^2 + 1$
