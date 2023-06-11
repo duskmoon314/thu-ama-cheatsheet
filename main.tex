@@ -20,16 +20,16 @@
 % ctex 排版设置
 \ctexset{
     section = {
-        beforeskip = {0ex},
-        afterskip = {0ex},
+        beforeskip = {-1ex},
+        afterskip = {-1ex},
     },
     subsection = {
-        beforeskip = {0ex},
-        afterskip = {0ex},
+        beforeskip = {-1ex},
+        afterskip = {-1ex},
     },
     subsubsection = {
-        beforeskip = {0ex},
-        afterskip = {0ex},
+        beforeskip = {-1ex},
+        afterskip = {-1ex},
     },
 }
 \setlength{\parindent}{0pt} % 抑制首行缩进以减少空白
@@ -79,9 +79,11 @@
 
         暮月
 
+        \vspace*{-0.5em}
+
         \href{https://github.com/duskmoon314/thu-ama-cheatsheet}{\faGithub \  duskmoon314/thu-ama-cheatsheet}
 
-        \vspace*{-1em}
+        \vspace*{-1.5em}
     \end{center}
 
     \section{预备知识}
@@ -106,7 +108,7 @@
 
     \textbf{恒等变换} $I_A(x) = x$
 
-    \textbf{映射的逆} $gf=I_A, fh=I_B$；若同时存在，则$g=h=f^{-1}$
+    \textbf{映射的逆} $gf \! = \! I_A, fh \! = \! I_B \impl g \! = \! h \!= \! f^{-1}$
 
     \subsection{二元关系}
 
@@ -151,7 +153,7 @@
         $(a, b)[a, b] = ab$
     \end{theorem}
 
-    \textbf{一次同余方程} $ax \equiv b \pmod{m} (a \ne 0 \pmod{m}) \iff (a, m) \mid b$\\
+    \textbf{一次同余方程} $ax \!\equiv\! b \pmod{m} \iff (a, m) \!\mid\! b$\\
     通解$x \equiv pb_1 \pmod{m_1}$ $(a = a_1(a, m), b = b_1(a, m), m = m_1(a, m), pa_1 +qm_1 = 1)$
 
     \textbf{一次同余方程组} $\begin{cases}
@@ -166,8 +168,6 @@
     \subsection{概念与例子}
 
     \textbf{群} $(G, \cdot)$ 封结幺逆(交)
-
-    \textbf{例} 数群、剩余类群、矩阵群、Klein四元群
 
     \begin{theorem}[幺元性质]
         $e_L = e_R = e$
@@ -231,9 +231,7 @@
 
     \textbf{循环子群} 由1个元素生成的子群
 
-    \textbf{极小生成集} $G \! = \! \gengroup{S}$，且任何S的真子集的生成子群均不是G
-
-    极小生成集的元素个数唯一
+    \textbf{极小生成集} $G \! = \! \gengroup{S}$，且任何S的真子集的生成子群均不是G，元素个数唯一
 
     \begin{theorem}[循环群性质]
         \hfil
@@ -254,7 +252,7 @@
 
     \subsubsection{置换群}
 
-    \textbf{变换群} 非空集合$\Omega$上所有可逆变换全体
+    \textbf{变换群\ } 非空集合$\Omega$上所有可逆变换全体
 
     \textbf{置换群(对称群)} 有限集上的变换群$S_n$
 
@@ -291,7 +289,7 @@
     \textbf{指数} 左(右)陪集的个数，记$[G\!:\!H](H \!\leq\! G)$
 
     \begin{theorem}[Lagrange定理]
-        $|G| \! < \! \infty, H \!\leq\! G \!\impl\! |G| \! = \! |H|[G:H]$
+        $H \!\leq\! G \!\impl\! |G| \! = \! |H|[G:H]$
     \end{theorem}
 
     \begin{theorem}[指数性质]
@@ -306,8 +304,6 @@
     \begin{theorem}[子群阶]
         $A, B \!\leq\! G$且有限$\impl |AB| = \frac{ |A| |B| }{ |A \cap B| }$
     \end{theorem}
-
-    \textbf{四阶群} $C_4$和Klein四元群
 
     \subsubsection{正规子群 \& 商群}
 
@@ -344,7 +340,7 @@
     \textbf{商群} $H \!\nmsubgroupeq\! G$，$G/H = \{ aH | a \in G \}$
 
     \begin{theorem}[素阶元]
-        有限交换群$G$，素数$p|\ |G|$，$G$必有$p$阶元
+        有限交换$G, p||G|$，$G$必有$o(x) \! = \! p$
     \end{theorem}
 
     \subsubsection{中心化子 \& 共轭子群}
@@ -535,6 +531,8 @@
 
     \textbf{主理想\ } 由1个元素生成的理想
 
+    \textbf{素理想} $P \nmsubgroupeq R$换，$ab \in P \impl a \in P \vee b \in P$
+
     \textbf{商环} $R$和$I$的加法商群引入乘法，$R/I$
 
     \textbf{极大理想} $M$非平凡，无更大非平凡理想
@@ -665,6 +663,8 @@
 
     \textbf{本原元} $\ff{p^n}^*$中$o_\times(\alpha) = p^n - 1$
 
+    \textbf{本原多项式\ } 本原元在$\ff{p}$上最小多项式
+
     \textbf{子域} $\ff{p^m} \leq \ff{p^n} \iff m | n$
 
     \begin{theorem}[多项式根]
@@ -674,6 +674,28 @@
     \begin{theorem}[一篮子分解]
         $x^{p^n} \! - \! x \! = \! \prod\limits_{d|n} g(x), g(x)$不可约
     \end{theorem}
+
+    \section{典例}
+
+    \begin{enumerate}
+        \item 唯二四阶群$C_4$和Klein四元群
+        \item $S_3$ 最小非交换群\\
+              $\{(1), (123), (132)\} \nmsubgroupeq S_3$ \\
+              $C((123)) = \{ (1), (123), (132) \}$ \\
+              $N(\gengroup{(12)}) = \{ (1), (12) \}$
+        \item $D_n = \{\rho^i \pi^j | 0 \leq i \leq n - 1, j = 0, 1 \}$ \\
+              子群$\gengroup{\rho}, \gengroup{\pi}, \gengroup{\rho^k, \rho^l\pi} (k | n, 0 \!\leq\! l \!<\! k)$
+        \item $S_n$中$1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n}$型置换数\\
+              $\frac{n!}{1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n} \lambda_1! \lambda_2! \cdots \lambda_n!}$
+        \item $K_4 \nmsubgroupeq S_4, S_4/K_4 \cong S_3$
+        \item $n \geq 5, A_n$是单群
+        \item UFD: $\setZ[x]$\\
+              $\setZ[x]$中本原多项式如$x^3 + x^2 + 1$
+        \item PID: $F[x]$
+        \item ED: $\setZ, F[x], \setZ[i]$
+        \item $\setC = \setR(i), (\setC : \setR) = 2$
+        \item $\ff{2^2} \! = \! \{ 0, 1, \alpha, \alpha^2 \}$有3次本原多项式$x^3 + x + 1$和$x^3 + x^2 + 1$
+    \end{enumerate}
 
 \end{multicols}
 
