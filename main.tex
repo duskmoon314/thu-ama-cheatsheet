@@ -77,7 +77,7 @@
     \begin{center}
         {\Large 应用近世代数}
 
-        暮月
+        暮月 BobAnkh
 
         \vspace*{-0.5em}
 
@@ -146,7 +146,7 @@
     \subsection{整数与同余}
 
     \begin{theorem}[Bézout定理]
-        $a, b \in \setZ^*, \exists p, q \in \setZ \st pa + qb = \gcd(a, b) = d$
+        $a, b \in \setZ^*, \exists p, q \in \setZ \st pa + qb = \gcd(a, b) = d$ \quad[辗转相除求p, q]
     \end{theorem}
 
     \begin{theorem}[gcd \& lcm]
@@ -154,7 +154,7 @@
     \end{theorem}
 
     \textbf{一次同余方程} $ax \!\equiv\! b \pmod{m} \iff (a, m) \!\mid\! b$\\
-    通解$x \!\!\equiv\!\! pb_1 \pmod{m_1} (a \!\! = \!\! a_1(a, m), b \!\! = \!\! b_1(a, m), \\ m = m_1(a, m), pa_1 +qm_1 = 1)$
+    通解$x \!\equiv\! pb_1 \pmod{m_1}\ [a \!\! = \!\! a_1(a, m), b \!\! = \!\! b_1(a, m), \\ m = m_1(a, m), pa_1 +qm_1 = 1]$
 
     \textbf{一次同余方程组} $\begin{cases}
             x \equiv b_1 \pmod{m_1} \\
@@ -219,9 +219,11 @@
         \begin{enumerate}
             \item $o(e) = 1$, $o(a^{-1}) = o(a)$
             \item $a^m = e \iff o(a) | m$
+            \item $o(a)=n \!\impl\! o(a^m)=n/(m,n)$
             \item 有限群中所有元素的阶均有限，而无限群不一定存在无限阶元
             \item 设$o(a) = m, o(b) = n$，若$(m, n) = 1$且$ab = ba$，则$o(ab) = mn$
             \item $\forall a \!\in\! G \!\setminus\! \{e\}$，若$o(a) = 2$，G交换群
+            \item $|G| = 2n \impl \exists o(x) = 2$
         \end{enumerate}
     \end{theorem}
 
@@ -240,13 +242,14 @@
             \item 循环群必交换
             \item 循环子群的阶等于生成元的阶
             \item $\gengroup{a} \cong \begin{cases}
-                          (\setZ, +)        & o(a)=\infty       \\
-                          (\setZ/n\setZ, +) & o(a) = n < \infty \\
+                          (\setZ, +)        & o(a)=\infty                   \\
+                          (\setZ/n\setZ, +) & o(a) = n < \infty \quad (C_n) \\
                       \end{cases}$
             \item 阶数相同的循环群必同构
             \item $(\setZ, +)\!$子群必为$m\setZ(m \!\in\! \setZ)$形式
 
                   $(\setZ/n\setZ,\! +)\!$子群同构于$\!(\setZ/d\setZ,\! +)\  d|n$
+            \item $Z_n=\gengroup{\bar{a}}, (a,n)=1$
         \end{enumerate}
     \end{theorem}
 
@@ -257,6 +260,8 @@
     \textbf{置换群(对称群)} 有限集上的变换群$S_n$
 
     \textbf{置换的共轭} $\tau \sigma \tau^{-1} = \sigma_1$
+
+    $\sigma$为轮换$(i_1 i_2 ...)$，则$\sigma_1 = (\tau(i_1) \tau(i_2) \cdots)$
 
     \textbf{轮换} $\sigma(i_k) = i_{((k+1))}$，其余不动点
 
@@ -276,6 +281,8 @@
 
     \begin{theorem}[Cayley定理]
         任一群$G$必同构于左乘变换群。有限群则$G \!\cong\! G' \!\leq\! S_n$
+
+        $G^{'} = \{f_g | g \in G,f_g (x)=gx,\forall x\in G\}$
     \end{theorem}
 
     \subsubsection{子群陪集}
@@ -285,6 +292,8 @@
     \begin{theorem}[陪集相等判则]
         $aH = bH \iff a^{-1}b \in H$
     \end{theorem}
+
+    $aH=H \iff a\in H$; $aH=bH \vee aH \cap bH=\emptyset$
 
     \textbf{指数} 左(右)陪集的个数，记$[G\!:\!H](H \!\leq\! G)$
 
@@ -375,6 +384,8 @@
 
     \textbf{正规化子} $N_G(H) = \{g \in G | gH = Hg\}$
 
+    \textbf{性质} 1) $H \nmsubgroupeq N(H) \leq G$; 2) $H \nmsubgroupeq G$ 时, $N(H)=G$, 否则$N(H)<G$
+
     \textbf{共轭子群类} $K_H = \{gHg^{-1} | g \in G\}$
 
     \begin{theorem}[共轭子群类基数定理]
@@ -394,7 +405,7 @@
 
     \textbf{满同态} \ 满射 + 同态 $G \overset{f}{\twoheadrightarrow} G'$
 
-    \textbf{同构} \ 双射 + 同态 $G \overunderset{\sim}{f}{\rightarrow} G'$
+    \textbf{同构} \ 双射 + 同态 $G \overunderset{\sim}{f}{\rightarrow} G'$($\cong$)
 
     \textbf{核} $\ker f = \{ a \in G | f(a) = e' \} \nmsubgroupeq G$
 
@@ -418,8 +429,7 @@
 
         \begin{enumerate}
             \item $G/K \cong f(G)$，若$f$满，则$G/K \cong G'$
-            \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl \\
-                      f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
+            \item $\pi: G \twoheadrightarrow G/K, j: f(G) \hookrightarrow G' \impl \\ f = j \circ \bar{f} \circ \pi, \bar{f}: G/K \rightarrow f(G), \bar{a} \mapsto f(a)$
         \end{enumerate}
 
         \begin{tikzcd}[column sep = tiny, row sep = small]
@@ -466,6 +476,8 @@
 
     \textbf{可迁} $\forall x, y \in \Omega, \exists g \in G, g(x) = y$
 
+    若G在$\Omega$上可迁，则必有$|G|\geq |\Omega|$，反之则一定不可迁
+
     \textbf{稳定化子} $G_x \! = \! \{ g \!\in\! G | g(x) \! = \! x \} \!\leq\! G$
 
     \textbf{轨道公式} $|\Omega_x| = |G : G_x|, |G| = |\Omega_x||G_x|$
@@ -473,6 +485,8 @@
     \begin{theorem}[Burnside 引理]
         $G$作用$\Omega$，轨道数$N$，$g$在$\Omega$中不动点数$\chi(g)$，则$N = \frac{1}{|G|} \sum\limits_{g \in G} \chi(g)$
     \end{theorem}
+
+    \textbf{旋转群(顶点)} 正四面体$A_4$，正六/八面体对偶，同构$S_4$，正十二/二十面体对偶，同构$A_5$
 
     \section{环论}
 
@@ -488,11 +502,15 @@
 
     \textbf{零因子} $a, b \in R, ab = 0 \wedge a, b \ne 0$
 
+    无零因子$\iff$乘法消去律成立
+
     \textbf{整环} $R\ne \{0\}$，含幺可交换无零因子
 
     \textbf{除环} $\{0, 1\} \subseteq R, R \setminus \{0\}$构成乘法群
 
     非零有限无零因子是除环$\!\impl\!$有限整环是域
+
+    整环可逆/除环交换$\impl$域
 
     \subsection{内部结构}
 
@@ -536,7 +554,7 @@
 
     素理想$P, R/P$为整环
 
-    \textbf{商环} $R$和$I$的加法商群引入乘法，$R/I$
+    \textbf{商环} $R$和$I$的加法商群引入乘法，$R/I=\{r+I|r\in R\}$
 
     \textbf{极大理想} $M$非平凡，无更大非平凡理想
 
@@ -544,7 +562,7 @@
 
     \subsection{外部联系(环同态)}
 
-    参见群同态(\ref{sec:group-homomorphism})
+    参见群同态(\ref{sec:group-homomorphism})。保运算是+和$\cdot$
 
     \subsection{特殊环}
 
@@ -580,7 +598,8 @@
     \textbf{因子链条件} $D$中任真因子链只有有限项
 
     \textbf{UFD} $\forall a \!\in\! D \setminus (\{ 0 \} \!\cup\! U(D)), a \! = \! \prod p_i^{\epsilon_i}$唯一\\
-    UFD $\iff$ GCD + 素性 $\iff$ 素性 + 因子链
+    UFD $\iff$ GCD + 素性 $\iff$ 素性 + 因子链 \\
+    $D$为UFD$\impl D[x]$为UFD
 
     \textbf{PID} $D$的任意理想都是主理想 $\subset$ UFD
 
@@ -597,7 +616,7 @@
 
     \subsection{域扩张}
 
-    \textbf{子域/扩域} $\emptyset \ne F \subseteq K$，皆为域
+    \textbf{子域/扩域} $\emptyset \ne F \subseteq K$，皆为域，$K/F, F \leq K$
 
     \textbf{生成子域} $S \subseteq F$，$F$中含$S$最小子域，$\genfield{S}$
 
@@ -667,7 +686,7 @@
             \{0\} \cup \genfield{\alpha}, \alpha\text{为$\ff{p^n}$的本原元}
         \end{cases}$
 
-    \textbf{本原元} $\ff{p^n}^*$中$o_\times(\alpha) = p^n - 1$
+    \textbf{本原元} $\ff{p^n}^*$中$o^\times(\alpha) = p^n - 1$
 
     \textbf{本原多项式\ } 本原元在$\ff{p}$上最小多项式
 
@@ -678,8 +697,18 @@
     \end{theorem}
 
     \begin{theorem}[一篮子分解]
-        $x^{p^n} \! - \! x \! = \! \prod\limits_{d|n} g(x), g(x)$不可约
+        $x^{p^n} \! - \! x \! = \! \prod\limits_{d|n} g(x), g(x)$首一不可约
     \end{theorem}
+
+    \textbf{不可约多项式数} $\ff{q}[x], I_q(n) = \frac{1}{n} \sum\limits_{d|n} \mu(d) q^{n/d}$ \\
+    $\mu(n = \prod p_i^{r_i}) = \begin{cases}
+            1      & n = 1   \\
+            0      & r_i > 1 \\
+            (-1)^s & r_i = 1
+        \end{cases}$
+
+    \textbf{本原多项式数} $\ff{q}[x], J_q(n) = \frac{1}{n} \varphi(q^n - 1)$ \\
+    $\varphi(n) = \sum\limits_{(m, n) = 1} 1$
 
     \section{典例}
 
@@ -692,10 +721,14 @@
         \item $D_n = \{\rho^i \pi^j | 0 \leq i \leq n - 1, j = 0, 1 \}$ \\
               子群$\gengroup{\rho}, \gengroup{\rho^d}, \gengroup{\pi}, \gengroup{\rho^k \pi}, \gengroup{\rho^k, \rho^l\pi}$ \\
               共$\sum_{k|n} 1 + \sum_{k|n} k$个
+
+              $\rho_k\pi_l=\pi_{k+l},\pi_l\pi_l=\rho_{k-l}$
         \item $S_n$中$1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n}$型置换数\\
               $\frac{n!}{1^{\lambda_1} 2^{\lambda_2}\cdots n^{\lambda_n} \lambda_1! \lambda_2! \cdots \lambda_n!}$
         \item $K_4 \nmsubgroupeq S_4, S_4/K_4 \cong S_3$
+        \item 正立方体旋转群$\cong S_4$
         \item $n \geq 5, A_n$是单群
+        \item $|G| = p^n, |C(G)| > 1, p | |C(G)|$
         \item 幺换环: 数环、剩余类环
         \item 非换环: 矩阵环、映射环
         \item UFD: $\setZ[x]$\\
@@ -703,9 +736,21 @@
         \item $D \!\setminus\! UFD$: $\setZ[\sqrt{-5}]$
         \item PID: $F[x]$
         \item $UFD \!\setminus\! PID$: $\setZ[x]$
-        \item ED: $\setZ, F[x], \setZ[i]$
+        \item ED: $\setZ, F[x], \setZ[i], \setZ[\sqrt{-2}]$
         \item $\setC = \setR(i), (\setC : \setR) = 2$
-        \item $\ff{2^2} \! = \! \{ 0, 1, \alpha, \alpha^2 \}$有3次本原多项式$x^3 + x + 1$和$x^3 + x^2 + 1$
+        \item $\ff{2^3} \! = \! \{ 0, 1, \alpha, \alpha^2 \}$在$\ff{2}[x]$有3次本原多项式$x^7 + 1 = (x+1)(x^3 + x^2 + 1)(x^3 + x + 1)$
+    \end{enumerate}
+
+    \section{小技巧}
+    \begin{enumerate}
+        \item \textbf{A=B}  1) $A\subseteq B \wedge B\subseteq A$, 2) $A\subseteq B \wedge |A|=|B|$
+        \item \textbf{p=q}  $p|q\wedge q|p$
+        \item (1345)(25)=(21345),$(12345)^{-1}$=(15432)
+        \item 作对应关系$\!\impl\!$显然映射(单/满)$\!\impl\!$保运算
+        \item $S_n=\gengroup{(12),(13),...,(1n)}=\gengroup{(12),(123...n)}$
+        \item $A_n=\gengroup{(123),(124),...,(12n)}$
+        \item $A_n \nmsubgroupeq S_n$; $C_n \nmsubgroupeq D_n$
+        \item $H\leq G \wedge N \nmsubgroupeq G \!\impl\! N\nmsubgroupeq HN$
     \end{enumerate}
 
 \end{multicols}
